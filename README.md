@@ -1,4 +1,4 @@
-# StarWars Shipyard
+# Star Wars Shipyard
 
 Order Starships from [SWAPI](https://swapi.dev/)
 
