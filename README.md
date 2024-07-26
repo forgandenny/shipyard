@@ -1,4 +1,4 @@
-<img src="https://gist.githubusercontent.com/forgandenny/691fa3f8afffcc30f25ae691cee13752/raw/bc204affed7fe532944f5f03177b675379964f3d/badge.svg"/>
+<img src="./badge.svg"/>
 
 # Star Wars Shipyard
 
