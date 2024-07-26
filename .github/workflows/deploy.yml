@@ -34,4 +34,4 @@ jobs:
           result-type: lines
           gist-token: ${{ secrets.GIST_TOKEN }}s # if you want to upload badge to gist
           gist-url: https://gist.github.com/forgandenny9/${{ secrets.GIST_ID }}
-          upload-badge: ${{ github.base_ref == 'refs/heads/main' }}
+          upload-badge: true
