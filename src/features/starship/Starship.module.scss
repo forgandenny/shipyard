@@ -1,3 +1,5 @@
+@use '@carbon/react';
+
 .select {
   font-size: 25px;
   padding: 5px;
@@ -37,3 +39,12 @@
   }
 }
 
+.buyContainer {
+  width: 230px;
+  padding-left: react.$spacing-05;
+}
+
+.heroPadding {
+ 
+  height: react.$spacing-04;
+}
