@@ -29,9 +29,10 @@ jobs:
         uses: wjervis7/vitest-badge-action@v1.0.0
         if: success() || failure() # run whether steps succeed or not
         with:
-          vitest-config-path: ./vite.config.ts
-          summary-path: ./coverage/coverage-summary.json
-          result-type: lines
-          gist-token: ${{ secrets.GIST_TOKEN }} # if you want to upload badge to gist
-          gist-url: https://gist.github.com/forgandenny/${{ secrets.GIST_ID }}
-          upload-badge: true
+          result-type: statements
+          upload-badge: false
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: "./badge.svg"
