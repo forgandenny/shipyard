@@ -13,7 +13,8 @@ export default defineConfig({
     setupFiles: "src/setupTests",
     mockReset: true,
     coverage: {
-      provider: "istanbul", // or 'v8'
+      provider: "istanbul",
+      reporter: "json-summary", // or 'v8'
     },
   },
 })
