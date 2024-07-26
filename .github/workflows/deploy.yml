@@ -32,6 +32,6 @@ jobs:
           vitest-config-path: ./vite.config.ts
           summary-path: ./coverage/coverage-summary.json
           result-type: lines
-          gist-token: ${{ secrets.GIST_TOKEN }}s # if you want to upload badge to gist
-          gist-url: https://gist.github.com/forgandenny9/${{ secrets.GIST_ID }}
+          gist-token: ${{ secrets.GIST_TOKEN }} # if you want to upload badge to gist
+          gist-url: https://gist.github.com/forgandenny/${{ secrets.GIST_ID }}
           upload-badge: true
