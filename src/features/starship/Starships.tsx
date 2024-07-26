@@ -30,7 +30,11 @@ export const Starships = () => {
   }
 
   if (isLoading) {
-    return <Loading withOverlay={false} />
+    return (
+      <div className={styles.container}>
+        <Loading withOverlay={false} />
+      </div>
+    )
   }
 
   if (isSuccess) {

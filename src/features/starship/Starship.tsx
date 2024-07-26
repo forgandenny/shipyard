@@ -96,7 +96,11 @@ export const Starship = () => {
   }
 
   if (isLoading) {
-    return <Loading withOverlay={false} />
+    return (
+      <div className={styles.container}>
+        <Loading withOverlay={false} />
+      </div>
+    )
   }
 
   if (isSuccess) {
