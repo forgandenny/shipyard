@@ -17,6 +17,7 @@ import { Error } from "../../components/Error"
 import { useGetStarshipByIdQuery } from "./starshipsApiSlice"
 import { useAppDispatch } from "../../app/hooks"
 import { type BasketItem, addItem } from "../basket/basketSlice"
+import formatter from "../../utils/formatter"
 import styles from "./Starship.module.scss"
 
 export const Starship = () => {
@@ -64,6 +65,10 @@ export const Starship = () => {
         label: "Consumables",
         text: data?.consumables,
       },
+      {
+        label: "Cost",
+        text: formatter(data?.cost_in_credits ?? ""),
+      },
     ]
   }, [data])
 
@@ -83,6 +88,9 @@ export const Starship = () => {
       id: id!,
       name: data?.name ?? "unknown",
       amount: count,
+      cost: !isNaN(Number(data?.cost_in_credits))
+        ? Number(data?.cost_in_credits)
+        : 0,
     }
     if (showToast) {
       setShowToast(false)

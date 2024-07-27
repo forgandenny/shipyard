@@ -6,8 +6,14 @@ import {
   StructuredListCell,
 } from "@carbon/react"
 import { TrashCan } from "@carbon/icons-react"
-import { removeItem, selectItems, basketTotal } from "./basketSlice"
+import {
+  removeItem,
+  selectItems,
+  basketTotal,
+  basketTotalCost,
+} from "./basketSlice"
 import { useAppSelector, useAppDispatch } from "../../app/hooks"
+import formatter from "../../utils/formatter"
 
 interface Props {
   onClick: (arg: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
@@ -25,6 +31,7 @@ export const BasketButton = ({ onClick }: Props) => {
 
 export const BasketItems = () => {
   const items = useAppSelector(selectItems)
+  const totalCost = useAppSelector(basketTotalCost)
   const dispatch = useAppDispatch()
 
   return (
@@ -48,6 +55,11 @@ export const BasketItems = () => {
             </StructuredListCell>
           </StructuredListRow>
         ))}
+        <StructuredListRow>
+          <StructuredListCell head>TOTAL</StructuredListCell>
+          <StructuredListCell>{formatter(totalCost)}</StructuredListCell>
+          <StructuredListCell> </StructuredListCell>
+        </StructuredListRow>
       </StructuredListWrapper>
     </div>
   )

@@ -9,6 +9,7 @@ export interface BasketItem {
   id: string
   name: string
   amount: number
+  cost: number
 }
 
 const initialState: BasketSliceState = {
@@ -40,9 +41,12 @@ export const basketSlice = createAppSlice({
     selectItems: basket => basket.items,
     basketTotal: basket =>
       basket.items.reduce((total, item) => total + item.amount, 0),
+    basketTotalCost: basket =>
+      basket.items.reduce((total, item) => total + item.cost * item.amount, 0),
   },
 })
 
 export const { addItem, removeItem } = basketSlice.actions
 
-export const { selectItems, basketTotal } = basketSlice.selectors
+export const { selectItems, basketTotal, basketTotalCost } =
+  basketSlice.selectors
