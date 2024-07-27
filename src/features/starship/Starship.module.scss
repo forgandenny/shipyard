@@ -22,10 +22,10 @@
 }
 
 .topRight {
-  position: absolute;
-  top: 65px;
+  position: fixed;
+  top: 50px;
   z-index: 9000;
-  right: 15px;
+  right: 5px;
   animation: 0.8s ease-out 0s 1 slideInFromTop;
 }
 
