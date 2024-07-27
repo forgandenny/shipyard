@@ -52,7 +52,8 @@ export const Starships = () => {
                   return (
                     <li key={`s${id}`}>
                       <RouterLink
-                        aria-label="Starship link"
+                        aria-label={`View starship ${name}`}
+                        data-testid={`starship${id}`}
                         className="cds--link cds--link--lg"
                         to={`starship/${id}`}
                       >

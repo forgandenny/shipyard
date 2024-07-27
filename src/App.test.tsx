@@ -40,11 +40,13 @@ test("Navigating to and from starship page should work as expected", async () =>
 
   // Wait for starships to load
   await waitFor(() =>
-    expect(screen.getAllByLabelText("Starship link").length).toBe(2),
+    expect(
+      screen.getAllByLabelText("View starship", { exact: false }).length,
+    ).toBe(2),
   )
 
   // Click on a first starship
-  await user.click(screen.getAllByLabelText("Starship link")[0])
+  await user.click(screen.getByTestId("starship1"))
 
   await waitFor(() =>
     expect(screen.getByLabelText("Starship name")).toHaveTextContent(
@@ -61,15 +63,15 @@ test("Buying starship should update basket total", async () => {
   )
 
   // Wait for starships to load
-  await waitFor(() =>
-    expect(screen.getAllByLabelText("Starship link").length).toBe(2),
+  await waitFor(
+    () => screen.getAllByLabelText("View starship", { exact: false }).length,
   )
 
   // Click on a second starship
-  await user.click(screen.getAllByLabelText("Starship link")[1])
+  await user.click(screen.getByTestId("starship2"))
 
   await waitFor(() =>
-    expect(screen.getByLabelText("Starship name")).toHaveTextContent(
+    expect(screen.getByTestId("starshipName")).toHaveTextContent(
       "Starship Two",
     ),
   )
@@ -77,9 +79,44 @@ test("Buying starship should update basket total", async () => {
   await user.click(screen.getByLabelText("Increment number"))
   await user.click(screen.getByLabelText("Increment number"))
   await user.click(screen.getByLabelText("Increment number"))
-  await user.click(screen.getByLabelText("Buy starship"))
+  await user.click(screen.getByTestId("buyStarship"))
 
   expect(screen.queryByTestId("basketButton")).toBeInTheDocument()
 
   expect(screen.getByLabelText("basket total")).toHaveTextContent("4")
+})
+
+test("Buying starship should add items to basket", async () => {
+  const { user } = renderWithProviders(
+    <Router>
+      <App />
+    </Router>,
+  )
+
+  // Wait for starships to load
+  await waitFor(
+    () => screen.getAllByLabelText("View starship", { exact: false }).length,
+  )
+
+  // Click on a first starship
+  await user.click(screen.getByTestId("starship1"))
+
+  await waitFor(() =>
+    expect(screen.getByTestId("starshipName")).toHaveTextContent(
+      "Starship One",
+    ),
+  )
+
+  await user.click(screen.getByTestId("buyStarship"))
+
+  expect(screen.queryByTestId("basketButton")).toBeInTheDocument()
+
+  await user.click(screen.getByTestId("basketButton"))
+
+  expect(screen.queryByTestId("remove1")).toBeInTheDocument()
+
+  await user.click(screen.getByTestId("remove1"))
+
+  // Basket should not be rendered
+  expect(screen.queryByTestId("basketButton")).toBeNull()
 })

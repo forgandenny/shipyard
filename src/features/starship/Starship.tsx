@@ -133,7 +133,9 @@ export const Starship = () => {
         <Grid>
           <Column sm={4} md={8} lg={8}>
             <Stack gap={6}>
-              <h1 aria-label="Starship name">{data.name}</h1>
+              <h1 aria-label="Starship name" data-testid="starshipName">
+                {data.name}
+              </h1>
               <p>{data.manufacturer}</p>
               <div className={styles.heroPadding} />
             </Stack>
@@ -160,6 +162,7 @@ export const Starship = () => {
                 />
                 <Button
                   aria-label="Buy starship"
+                  data-testid="buyStarship"
                   type="button"
                   onClick={handleBuy}
                 >

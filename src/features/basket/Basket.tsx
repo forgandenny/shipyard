@@ -48,6 +48,7 @@ export const BasketItems = () => {
                 kind="ghost"
                 label="Remove"
                 aria-label="Remove item"
+                data-testid={`remove${item.id}`}
                 onClick={() => dispatch(removeItem(item.id))}
               >
                 <TrashCan />
