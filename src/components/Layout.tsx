@@ -18,23 +18,4 @@ const Layout = () => {
   )
 }
 
-/*
-
-const Layout = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Basket />
-        <Categories />
-        <Logo />
-        <main>
-          <Outlet />
-        </main>
-      </header>
-    </div>
-  )
-}
-
-*/
-
 export default Layout
