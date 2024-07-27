@@ -1,13 +1,13 @@
 import { HeaderMenuItem, SkeletonText } from "@carbon/react"
 
-import { Error } from "../../components/Error"
+import { AppError } from "../../components/AppError"
 import { useGetCategoriesQuery } from "./categoriesApiSlice"
 
 export const Categories = () => {
   const { data, isError, isLoading, isSuccess } = useGetCategoriesQuery()
 
   if (isError) {
-    return <Error />
+    return <AppError />
   }
 
   if (isLoading) {

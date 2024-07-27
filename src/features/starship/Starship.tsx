@@ -13,7 +13,7 @@ import {
   StructuredListCell,
 } from "@carbon/react"
 
-import { Error } from "../../components/Error"
+import { AppError } from "../../components/AppError"
 import { useGetStarshipByIdQuery } from "./starshipsApiSlice"
 import { useAppDispatch } from "../../app/hooks"
 import { type BasketItem, addItem } from "../basket/basketSlice"
@@ -100,7 +100,7 @@ export const Starship = () => {
   }, [dispatch, id, data, count, showToast])
 
   if (isError) {
-    return <Error />
+    return <AppError />
   }
 
   if (isLoading) {
@@ -122,7 +122,7 @@ export const Starship = () => {
               kind="info"
               onClose={() => setShowToast(false)}
               onCloseButtonClick={function noRefCheck() {}}
-              role="status"
+              role="alert"
               statusIconDescription="notification"
               subtitle="Added to basket"
               timeout={2000}

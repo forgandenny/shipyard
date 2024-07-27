@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Loading, PaginationNav, Stack } from "@carbon/react"
 import { Link as RouterLink } from "react-router-dom"
 
-import { Error } from "../../components/Error"
+import { AppError } from "../../components/AppError"
 import styles from "./Starship.module.scss"
 import { useGetStarshipsQuery } from "./starshipsApiSlice"
 
@@ -26,7 +26,7 @@ export const Starships = () => {
   }
 
   if (isError) {
-    return <Error />
+    return <AppError />
   }
 
   if (isLoading) {
