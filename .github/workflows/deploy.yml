@@ -26,13 +26,13 @@ jobs:
         run: yarn coverage
 
       - name: Publish Results Badge
-        uses: wjervis7/vitest-badge-action@v1.0.0
+        uses: wjervis7/vitest-badge-action@df6e1406f1da38269a4313963b16d699362ce7dc
         if: success() || failure() # run whether steps succeed or not
         with:
           result-type: lines
           upload-badge: false
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842
         with:
           file_pattern: "./badge.svg"
