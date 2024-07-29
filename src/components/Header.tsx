@@ -48,6 +48,7 @@ const AppHeader = () => {
       <HeaderName
         style={{ cursor: "pointer" }}
         prefix="SW"
+        data-testid="homepageLink"
         arial-label="Return to homepage"
         onClick={() => navigate("/")}
       >

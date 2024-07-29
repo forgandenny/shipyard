@@ -1,1 +1,1 @@
-export const AppError = () => <div>Oh no.</div>
+export const AppError = () => <div data-testid="appError">Oh no.</div>

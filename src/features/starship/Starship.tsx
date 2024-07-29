@@ -126,6 +126,7 @@ export const Starship = () => {
               statusIconDescription="notification"
               subtitle="Added to basket"
               timeout={2000}
+              data-testid="notification"
               title={`${buyCount}x ${data.name}`}
             />
           </div>

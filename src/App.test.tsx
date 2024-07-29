@@ -32,6 +32,7 @@ test("App should have correct initial render", async () => {
 })
 
 test("Navigating to and from starship page should work as expected", async () => {
+  
   const { user } = renderWithProviders(
     <Router>
       <App />
@@ -55,7 +56,45 @@ test("Navigating to and from starship page should work as expected", async () =>
   )
 })
 
-test("Buying starship should update basket total", async () => {
+test("Landing on non-existant starship should display error", async () => {
+
+  const badRoute = '/starship/900'
+
+  renderWithProviders(
+    <Router initialEntries={[badRoute]}>
+      <App />
+    </Router>,
+  )
+
+ await waitFor(() =>
+    expect(screen.getByTestId("appError")).toBeVisible(),
+  )
+})
+
+test("Header link should return to homepage", async () => {
+
+  const route = '/starship/1'
+  
+  const { user } = renderWithProviders(
+    <Router initialEntries={[route]}>
+      <App />
+    </Router>,
+  )
+
+  await waitFor(() =>
+    expect(screen.getByTestId("homepageLink")).toBeVisible(),
+  )
+
+  await user.click(screen.getByTestId("homepageLink"))
+
+   await waitFor(() =>
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "Starships",
+    ),
+  )
+})
+
+test("Buying starship should show notification and update basket total", async () => {
   const { user } = renderWithProviders(
     <Router>
       <App />
@@ -80,6 +119,10 @@ test("Buying starship should update basket total", async () => {
   await user.click(screen.getByLabelText("Increment number"))
   await user.click(screen.getByLabelText("Increment number"))
   await user.click(screen.getByTestId("buyStarship"))
+
+  await waitFor(() =>
+    expect(screen.getByTestId("notification")).toBeVisible(),
+  )
 
   expect(screen.queryByTestId("basketButton")).toBeInTheDocument()
 
