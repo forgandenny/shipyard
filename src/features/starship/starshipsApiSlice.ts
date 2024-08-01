@@ -8,7 +8,7 @@ export default interface Resource {
   edited: string
 }
 
-interface Starship {
+export interface Starship {
   name: string
   model: string
   manufacturer: string
@@ -27,7 +27,7 @@ interface Starship {
   films: string[]
 }
 
-interface StarshipsApiResponse {
+export interface StarshipsApiResponse {
   results: Starship[]
   count: number
   next: string
