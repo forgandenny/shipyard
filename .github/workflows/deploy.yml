@@ -2,7 +2,7 @@
 name: Test Coverage
 
 on:
-  push:
+  pull_request:
     branches:
       - main
 
