@@ -19,7 +19,6 @@ export default defineConfig(({ mode }) => ({
             : [],
       },
     }),
-    ,
   ],
   server: {
     open: true,
@@ -31,7 +30,7 @@ export default defineConfig(({ mode }) => ({
     mockReset: true,
     coverage: {
       provider: "istanbul",
-      reporter: "json-summary", // or 'v8'
+      reporter: ["json-summary", "lcov"], // or 'v8'
     },
   },
 }))

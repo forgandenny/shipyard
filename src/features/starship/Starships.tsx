@@ -1,21 +1,21 @@
 import { useState } from "react"
 import { Loading, PaginationNav, Stack } from "@carbon/react"
-import { Link as RouterLink } from "react-router-dom"
+import { Link as RouterLink, useLocation } from "react-router-dom"
 
-import { Error } from "../../components/Error"
+import { AppError } from "../../components/AppError"
 import styles from "./Starship.module.scss"
 import { useGetStarshipsQuery } from "./starshipsApiSlice"
+import getResourceId from "../../utils/resourceId"
 
 const pageSize = 10
 
-function getResourceId(url: string) {
-  let parts = url.split("/")
-  let resourceId = parts[parts.length - 2]
-  return resourceId
-}
 
 export const Starships = () => {
-  const [currentPage, setCurrentPage] = useState(0)
+
+  const { state: routeState } = useLocation();
+  const from = routeState ? routeState.from : 1;
+
+  const [currentPage, setCurrentPage] = useState(from - 1)
 
   const { data, isError, isLoading, isSuccess } = useGetStarshipsQuery(
     currentPage + 1,
@@ -26,7 +26,7 @@ export const Starships = () => {
   }
 
   if (isError) {
-    return <Error />
+    return <AppError />
   }
 
   if (isLoading) {
@@ -56,6 +56,7 @@ export const Starships = () => {
                         data-testid={`starship${id}`}
                         className="cds--link cds--link--lg"
                         to={`starship/${id}`}
+                        state={{ from: currentPage + 1 }}
                       >
                         {name}
                       </RouterLink>

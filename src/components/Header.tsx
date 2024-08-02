@@ -46,8 +46,9 @@ const AppHeader = () => {
         aria-expanded={isSideNavExpanded}
       />
       <HeaderName
-        style={{ cursor: "pointer" }}
+        //style={{ cursor: "pointer" }}
         prefix="SW"
+        data-testid="homepageLink"
         arial-label="Return to homepage"
         onClick={() => navigate("/")}
       >

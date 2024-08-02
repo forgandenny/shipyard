@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useLocation, Link } from "react-router-dom"
 import {
   Stack,
   Button,
@@ -11,25 +11,44 @@ import {
   StructuredListWrapper,
   StructuredListRow,
   StructuredListCell,
+  Breadcrumb,
+  BreadcrumbItem
 } from "@carbon/react"
 
-import { Error } from "../../components/Error"
-import { useGetStarshipByIdQuery } from "./starshipsApiSlice"
+import { AppError } from "../../components/AppError"
+import { type Starship as StarshipType, useGetStarshipsQuery, useGetStarshipByIdQuery } from "./starshipsApiSlice"
 import { useAppDispatch } from "../../app/hooks"
 import { type BasketItem, addItem } from "../basket/basketSlice"
 import formatter from "../../utils/formatter"
+import resourceId from "../../utils/resourceId"
 import styles from "./Starship.module.scss"
 
 export const Starship = () => {
   const { id } = useParams()
-  const { data, isError, isLoading, isSuccess } = useGetStarshipByIdQuery(
-    Number(id),
+  const { state: routeState } = useLocation();
+  const from = routeState ? routeState.from : 1;
+
+  const { data: rootData, isError: isRootError, isLoading: isRootLoading, isSuccess: isRootSuccess } = useGetStarshipsQuery(
+    from, { skip: routeState === null }
   )
+
+  const skipStarshipsLoad = typeof rootData !== "undefined" || isRootLoading;
+
+  const { data: shipData, isError: isShipError, isLoading: isShipLoading, isSuccess: isShipSuccess } = useGetStarshipByIdQuery(
+    Number(id), { skip: skipStarshipsLoad }
+  )
+
+  const data = shipData ?? rootData?.results.find((ship: StarshipType) => resourceId(ship.url) === id);
+  const isError = isShipError || isRootError
+  const isLoading = isRootLoading || isShipLoading
+  const isSuccess = isRootSuccess || isShipSuccess
+
   const dispatch = useAppDispatch()
 
   const [count, setCount] = useState(1)
   const [buyCount, setBuyCount] = useState(1)
   const [showToast, setShowToast] = useState(false)
+
 
   const descriptionItems = useMemo(() => {
     return [
@@ -100,7 +119,7 @@ export const Starship = () => {
   }, [dispatch, id, data, count, showToast])
 
   if (isError) {
-    return <Error />
+    return <AppError />
   }
 
   if (isLoading) {
@@ -111,7 +130,7 @@ export const Starship = () => {
     )
   }
 
-  if (isSuccess) {
+  if (isSuccess && typeof data !== "undefined") {
     return (
       <>
         {showToast ? (
@@ -121,11 +140,12 @@ export const Starship = () => {
               lowContrast
               kind="info"
               onClose={() => setShowToast(false)}
-              onCloseButtonClick={function noRefCheck() {}}
-              role="status"
+              onCloseButtonClick={function noRefCheck() { }}
+              role="alert"
               statusIconDescription="notification"
               subtitle="Added to basket"
               timeout={2000}
+              data-testid="notification"
               title={`${buyCount}x ${data.name}`}
             />
           </div>
@@ -133,6 +153,15 @@ export const Starship = () => {
         <Grid>
           <Column sm={4} md={8} lg={8}>
             <Stack gap={6}>
+              <Breadcrumb noTrailingSlash>
+                <BreadcrumbItem>
+                  <Link to="/" state={{ from }}>Home</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem isCurrentPage>
+                  {data.name}
+                </BreadcrumbItem>
+              </Breadcrumb>
+
               <h1 aria-label="Starship name" data-testid="starshipName">
                 {data.name}
               </h1>

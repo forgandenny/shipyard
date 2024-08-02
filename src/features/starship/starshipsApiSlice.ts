@@ -1,16 +1,14 @@
 // Need to use the React-specific entry point to import `createApi`
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-export type ResourceUrl = string
-
 export default interface Resource {
-  url: ResourceUrl
+  url: string
   id: string
   created: string
   edited: string
 }
 
-interface Starship {
+export interface Starship {
   name: string
   model: string
   manufacturer: string
@@ -25,11 +23,11 @@ interface Starship {
   MGLT: string
   starship_class: string
   url: string
-  pilots: ResourceUrl[]
-  films: ResourceUrl[]
+  pilots: string[]
+  films: string[]
 }
 
-interface StarshipsApiResponse {
+export interface StarshipsApiResponse {
   results: Starship[]
   count: number
   next: string

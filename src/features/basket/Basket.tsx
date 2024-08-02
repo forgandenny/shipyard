@@ -44,7 +44,7 @@ export const BasketItems = () => {
             <StructuredListCell>
               <IconButton
                 size="sm"
-                style={{ margin: 0, padding: 0 }}
+                //style={{ margin: 0, padding: 0 }}
                 kind="ghost"
                 label="Remove"
                 aria-label="Remove item"

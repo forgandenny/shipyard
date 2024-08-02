@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 coverage
+.scannerwork
+sonar-project.properties
 
 # Editor directories and files
 .vscode/*
@@ -24,3 +26,5 @@ coverage
 *.sln
 *.sw?
 
+/sonar-project.properties
+/.scannerwork

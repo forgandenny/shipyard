@@ -1,1 +1,13 @@
+$prefix: "cds";
 @use '@carbon/react' with ($font-path: '@ibm/plex');
+@use '@carbon/react/scss/breakpoint' as *;
+
+.#{$prefix}--breadcrumb {
+  display: flex;
+  overflow: hidden;
+  flex-wrap: nowrap;
+
+  @include breakpoint(md) {
+    flex-wrap: nowrap;
+  }
+}
