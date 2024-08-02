@@ -26,3 +26,5 @@ sonar-project.properties
 *.sln
 *.sw?
 
+/sonar-project.properties
+/.scannerwork
