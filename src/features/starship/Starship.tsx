@@ -23,6 +23,8 @@ import formatter from "../../utils/formatter"
 import resourceId from "../../utils/resourceId"
 import styles from "./Starship.module.scss"
 
+const maxCount = 10
+
 export const Starship = () => {
   const { id } = useParams()
   const { state: routeState } = useLocation();
@@ -48,6 +50,7 @@ export const Starship = () => {
   const [count, setCount] = useState(1)
   const [buyCount, setBuyCount] = useState(1)
   const [showToast, setShowToast] = useState(false)
+  const [canAdd, setCanAdd] = useState(true)
 
 
   const descriptionItems = useMemo(() => {
@@ -96,9 +99,15 @@ export const Starship = () => {
       _: React.MouseEvent<HTMLButtonElement, MouseEvent>,
       { value }: { value: string | number },
     ) => {
-      setCount(Number(value))
+      const countValue = Number(value);
+      if (countValue > maxCount) {
+        setCanAdd(false)
+      } else if (canAdd === false) {
+        setCanAdd(true)
+      }
+      setCount(countValue)
     },
-    [],
+    [canAdd],
   )
 
   const handleBuy = useCallback(() => {
@@ -183,7 +192,7 @@ export const Starship = () => {
                 <NumberInput
                   id="carbon-number"
                   min={1}
-                  max={10}
+                  max={maxCount}
                   value={count}
                   label="How many starships to buy (max 10)"
                   invalidText="You can only add beween 1 and 10 starships at a time"
@@ -194,6 +203,7 @@ export const Starship = () => {
                   data-testid="buyStarship"
                   type="button"
                   onClick={handleBuy}
+                  disabled={!canAdd}
                 >
                   BUY
                 </Button>
