@@ -27,27 +27,22 @@ export interface Starship {
   films: string[]
 }
 
-export interface StarshipsApiResponse {
-  results: Starship[]
-  count: number
-  next: string
-  previous?: string
-}
+export type StarshipsApiResponse = Starship[]
 
 // Define a service using a base URL and expected endpoints
 export const starshipsApiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "https://swapi.dev/api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://swapi.info/api" }),
   reducerPath: "starshipsApi",
   // Tag types are used for caching and invalidation.
   tagTypes: ["Starships", "Starship"],
   endpoints: build => ({
-    getStarships: build.query<StarshipsApiResponse, number>({
-      query: (page: number) => `starships/?page=${page}`,
+    getStarships: build.query<StarshipsApiResponse, void>({
+      query: () => `/starships`,
       providesTags: (result, error, page) => [{ type: "Starships", page }],
       keepUnusedDataFor: 3600,
     }),
     getStarshipById: build.query<Starship, number>({
-      query: (id: number) => `starships/${id}/`,
+      query: (id: number) => `/starships/${id}`,
       providesTags: (result, error, id) => [{ type: "Starship", id }],
       keepUnusedDataFor: 3600,
     }),

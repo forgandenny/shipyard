@@ -14,7 +14,7 @@ const starshipOne = {
   hyperdrive_rating: "2",
   MGLT: "something",
   starship_class: "CAT2",
-  url: "https://swapi.dev/api/starships/1/",
+  url: "https://swapi.info/api/starships/1",
   pilots: [],
   films: [],
 }
@@ -22,14 +22,10 @@ const starshipOne = {
 const starshipTwo = {
   ...starshipOne,
   name: "Starship Two",
-  url: "https://swapi.dev/api/starships/2/",
+  url: "https://swapi.info/api/starships/2",
 }
 
-const starshipsResponse = {
-  results: [starshipOne, starshipTwo],
-  count: 2,
-  next: "https://example.com",
-}
+const starshipsResponse = [starshipOne, starshipTwo]
 
 const baseResponse = {
   people: "",
@@ -41,16 +37,16 @@ const baseResponse = {
 }
 
 export const handlers = [
-  http.get("https://swapi.dev/api/", () => {
+  http.get("https://swapi.info/api", () => {
     return HttpResponse.json(baseResponse)
   }),
-  http.get("https://swapi.dev/api/starships/", () => {
+  http.get("https://swapi.info/api/starships", () => {
     return HttpResponse.json(starshipsResponse)
   }),
-  http.get("https://swapi.dev/api/starships/1", () => {
+  http.get("https://swapi.info/api/starships/1", () => {
     return HttpResponse.json(starshipOne)
   }),
-  http.get("https://swapi.dev/api/starships/2", () => {
+  http.get("https://swapi.info/api/starships/2", () => {
     return HttpResponse.json(starshipTwo)
   }),
 ]
