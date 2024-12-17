@@ -11,13 +11,13 @@ interface Categories {
 
 // Define a service using a base URL and expected endpoints
 export const categoriesApiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "https://swapi.dev/api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://swapi.info/api" }),
   reducerPath: "categoriesApi",
   // Tag types are used for caching and invalidation.
   tagTypes: ["Categories"],
   endpoints: build => ({
     getCategories: build.query<Categories, void>({
-      query: () => "/",
+      query: () => "",
       providesTags: (result, error) => [{ type: "Categories" }],
       keepUnusedDataFor: 9600,
     }),

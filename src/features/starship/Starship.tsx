@@ -40,7 +40,7 @@ export const Starship = () => {
     Number(id), { skip: skipStarshipsLoad }
   )
 
-  const data = shipData ?? rootData?.results.find((ship: StarshipType) => resourceId(ship.url) === id);
+  const data = shipData ?? rootData?.find((ship: StarshipType) => resourceId(ship.url) === id);
   const isError = isShipError || isRootError
   const isLoading = isRootLoading || isShipLoading
   const isSuccess = isRootSuccess || isShipSuccess

@@ -32,7 +32,7 @@ test("App should have correct initial render", async () => {
 })
 
 test("Navigating to and from starship page should work as expected", async () => {
-  
+
   const { user } = renderWithProviders(
     <Router>
       <App />
@@ -66,7 +66,7 @@ test("Landing on non-existant starship should display error", async () => {
     </Router>,
   )
 
- await waitFor(() =>
+  await waitFor(() =>
     expect(screen.getByTestId("appError")).toBeVisible(),
   )
 })
@@ -74,7 +74,7 @@ test("Landing on non-existant starship should display error", async () => {
 test("Header link should return to homepage", async () => {
 
   const route = '/starship/1'
-  
+
   const { user } = renderWithProviders(
     <Router initialEntries={[route]}>
       <App />
@@ -87,7 +87,7 @@ test("Header link should return to homepage", async () => {
 
   await user.click(screen.getByTestId("homepageLink"))
 
-   await waitFor(() =>
+  await waitFor(() =>
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
       "Starships",
     ),
